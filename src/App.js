@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+// import { render } from '@testing-library/react';
+import React from 'react';
+import CustomInput from './components/CustomInput';
+import List from './components/List'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputValueArray: [],
+      
+    }
+    this.addTodo = this.addTodo.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+  }
+
+  addTodo(inputValue) {
+    console.log("addTodo:",inputValue)    
+    this.setState({
+      // inputValue: this.state.inputValueArray.concat(
+      //  { inputValue } )    
+    inputValueArray: [...this.state.inputValueArray, inputValue]  
+  })
+    localStorage.setItem('inputValue', JSON.stringify(inputValue))
+  }
+  render(){
+        console.log(this.state.inputValueArray)
+     return (
+
+    <form  action="" onSubmit={this.handleSubmit}>
+    <CustomInput addTodo={this.addTodo} />  
+     <List inputValueArrayFromApp={this.state.inputValueArray}/>
+     </form>
+
   );
+  }
 }
+ 
+
 
 export default App;
